@@ -39,6 +39,15 @@
         /* 부드러운 스크롤 */
         html { scroll-behavior: smooth; }
         
+        /* 탭 전환을 위한 클래스 */
+        .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* 배경 이미지 그라데이션 오버레이 */
         .hero-overlay {
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
@@ -62,19 +71,21 @@
         </div>
     </header>
 
-    <!-- 날짜 탭 (첫째 날) -->
+    <!-- 날짜 탭 -->
     <div class="bg-white sticky top-0 z-20 border-b border-gray-100 shadow-sm flex">
-        <div class="flex-1 py-4 text-center border-b-2 border-blue-500">
-            <span class="text-blue-600 font-bold">7/5 (일) - 첫째 날</span>
-        </div>
-        <div class="flex-1 py-4 text-center text-gray-400 font-medium">
-            <span>7/6 (월) - 둘째 날</span>
-        </div>
+        <button onclick="switchTab('day1')" id="tab-day1" class="flex-1 py-4 text-center border-b-2 border-blue-500 text-blue-600 font-bold transition-colors">
+            7/5 (일) - 첫째 날
+        </button>
+        <button onclick="switchTab('day2')" id="tab-day2" class="flex-1 py-4 text-center border-b-2 border-transparent text-gray-400 font-medium hover:text-gray-600 transition-colors">
+            7/6 (월) - 둘째 날
+        </button>
     </div>
 
     <!-- 일정 리스트 -->
     <main class="p-5 pt-8">
-        <div class="relative">
+        
+        <!-- 첫째 날 (Day 1) 콘텐츠 -->
+        <div id="content-day1" class="tab-content active relative">
             
             <div class="timeline-item relative pl-12 mb-8">
                 <div class="timeline-line"></div>
@@ -87,13 +98,15 @@
                         <h3 class="font-bold text-lg text-gray-800">점심 식사 집결</h3>
                         <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">11:00</span>
                     </div>
-                    <div class="flex items-start mb-2">
-                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2"></i>
+                    <a href="https://naver.me/xyTM8l83" target="_blank" rel="noopener noreferrer" class="flex items-start mb-2 group cursor-pointer hover:bg-gray-50 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-700 font-bold text-sm">백년교동짬뽕 안산점</p>
+                            <p class="text-gray-700 font-bold text-sm group-hover:text-blue-600 flex items-center">
+                                백년교동짬뽕 안산점 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-400"></i>
+                            </p>
                             <p class="text-gray-400 text-xs mt-0.5">경기 안산시 단원구 대부황금로 1516-7</p>
                         </div>
-                    </div>
+                    </a>
                     <div class="flex flex-wrap gap-1.5 mt-3">
                         <span class="text-xs bg-gray-50 border border-gray-100 text-gray-600 px-2.5 py-1 rounded-full"><i class="fas fa-check text-blue-400 mr-1"></i>교동짬뽕</span>
                         <span class="text-xs bg-gray-50 border border-gray-100 text-gray-600 px-2.5 py-1 rounded-full"><i class="fas fa-check text-blue-400 mr-1"></i>콩국수</span>
@@ -113,13 +126,15 @@
                         <h3 class="font-bold text-lg text-gray-800">체험 놀이</h3>
                         <span class="text-sm font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">13:00</span>
                     </div>
-                    <div class="flex items-start mb-2">
-                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2"></i>
+                    <a href="https://naver.me/5ISBGrpw" target="_blank" rel="noopener noreferrer" class="flex items-start mb-2 group cursor-pointer hover:bg-gray-50 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-700 font-bold text-sm">그린티플</p>
+                            <p class="text-gray-700 font-bold text-sm group-hover:text-emerald-600 flex items-center">
+                                그린티플 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-400"></i>
+                            </p>
                             <p class="text-gray-400 text-xs mt-0.5">경기 안산시 단원구 대부황금로 1553</p>
                         </div>
-                    </div>
+                    </a>
                     
                     <div class="mt-3 bg-emerald-50/50 rounded-lg p-3 text-sm text-gray-600 leading-relaxed">
                         <p class="mb-1"><i class="fas fa-info-circle text-emerald-500 mr-1"></i> <strong>예약 필수</strong> (24개월 이하 무료)</p>
@@ -139,13 +154,15 @@
                         <h3 class="font-bold text-lg text-gray-800">펜션 체크인 및 휴식</h3>
                         <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg">16:00</span>
                     </div>
-                    <div class="flex items-start mb-2">
-                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2"></i>
+                    <a href="https://naver.me/xDJD7JPs" target="_blank" rel="noopener noreferrer" class="flex items-start mb-2 group cursor-pointer hover:bg-gray-50 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-700 font-bold text-sm">꿈의궁전펜션</p>
+                            <p class="text-gray-700 font-bold text-sm group-hover:text-indigo-600 flex items-center">
+                                꿈의궁전펜션 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-400"></i>
+                            </p>
                             <p class="text-gray-400 text-xs mt-0.5">인천 옹진군 영흥면 영흥서로 475-11</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -160,12 +177,14 @@
                         <h3 class="font-bold text-lg text-gray-800">저녁 바베큐 1차</h3>
                         <span class="text-sm font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-lg">17:30</span>
                     </div>
-                    <div class="flex items-start mb-3">
-                        <i class="fas fa-map-marker-alt text-gray-300 mt-1 mr-2"></i>
+                    <a href="https://naver.me/xDJD7JPs" target="_blank" rel="noopener noreferrer" class="flex items-start mb-3 group cursor-pointer hover:bg-gray-50 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-500 font-medium text-sm">꿈의궁전펜션 바베큐장</p>
+                            <p class="text-gray-600 font-medium text-sm group-hover:text-orange-600 flex items-center">
+                                꿈의궁전펜션 바베큐장 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-300"></i>
+                            </p>
                         </div>
-                    </div>
+                    </a>
                     <div class="flex flex-wrap gap-1.5 mb-3">
                         <span class="text-xs bg-orange-50 text-orange-700 font-semibold px-2.5 py-1 rounded-md">🥩 양고기</span>
                         <span class="text-xs bg-sky-50 text-sky-700 font-semibold px-2.5 py-1 rounded-md">🐟 생선구이</span>
@@ -187,23 +206,15 @@
                         <h3 class="font-bold text-lg text-gray-800">밤바다 산책 & 불꽃</h3>
                         <span class="text-sm font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-lg">20:00</span>
                     </div>
-                    <div class="flex items-start mb-3">
-                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2"></i>
+                    <a href="https://naver.me/5N15Cr0i" target="_blank" rel="noopener noreferrer" class="flex items-start mb-3 group cursor-pointer hover:bg-gray-50 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-red-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-700 font-bold text-sm">장경리 해수욕장</p>
+                            <p class="text-gray-700 font-bold text-sm group-hover:text-yellow-600 flex items-center">
+                                장경리 해수욕장 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-400"></i>
+                            </p>
                             <p class="text-gray-400 text-xs mt-0.5">펜션에서 약 1km (도보 15분)</p>
                         </div>
-                    </div>
-                    
-                    <!-- 경고 알림창 (폭죽 금지 관련 실제 정보) -->
-                    <div class="bg-red-50 border border-red-100 rounded-xl p-3 flex items-start">
-                        <div class="bg-red-100 rounded-full p-1.5 mr-2 mt-0.5">
-                            <i class="fas fa-exclamation-triangle text-red-500 text-xs"></i>
-                        </div>
-                        <p class="text-xs text-red-700 leading-relaxed">
-                            <strong>안내:</strong> 장경리 해수욕장은 <span class="font-bold underline decoration-red-300">폭죽놀이가 공식 금지</span>되어 있습니다! 큰 폭죽 대신 가벼운 스파클라를 지참하시거나 눈으로 밤바다만 즐겨주세요.
-                        </p>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -218,12 +229,14 @@
                         <h3 class="font-bold text-lg text-slate-800">저녁 바베큐 2차</h3>
                         <span class="text-sm font-bold text-slate-600 bg-slate-200 px-3 py-1 rounded-lg">21:00</span>
                     </div>
-                    <div class="flex items-start mb-3">
-                        <i class="fas fa-map-marker-alt text-gray-300 mt-1 mr-2"></i>
+                    <a href="https://naver.me/xDJD7JPs" target="_blank" rel="noopener noreferrer" class="flex items-start mb-3 group cursor-pointer hover:bg-slate-100 p-1 -ml-1 rounded-lg transition-colors">
+                        <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2 group-hover:animate-bounce"></i>
                         <div>
-                            <p class="text-gray-500 font-medium text-sm">꿈의궁전펜션 바베큐장</p>
+                            <p class="text-gray-600 font-medium text-sm group-hover:text-slate-800 flex items-center">
+                                꿈의궁전펜션 바베큐장 <i class="fas fa-external-link-alt text-[10px] ml-1.5 text-gray-400"></i>
+                            </p>
                         </div>
-                    </div>
+                    </a>
                     <div class="bg-slate-800 text-white rounded-xl p-3 text-sm flex items-center shadow-inner">
                         <i class="fas fa-wine-glass-empty text-yellow-400 mr-3 text-lg"></i>
                         <div>
@@ -235,6 +248,64 @@
             </div>
             
         </div>
+
+        <!-- 둘째 날 (Day 2) 콘텐츠 -->
+        <div id="content-day2" class="tab-content relative">
+            
+            <div class="timeline-item relative pl-12 mb-8">
+                <div class="timeline-line"></div>
+                <div class="absolute left-0 top-1 w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center shadow-md ring-4 ring-white z-10">
+                    <i class="fas fa-door-open text-sm"></i>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-gray-800">펜션 체크아웃</h3>
+                        <span class="text-sm font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-lg">11:00</span>
+                    </div>
+                    <div class="flex items-start mb-2">
+                        <i class="fas fa-bed text-gray-300 mt-1 mr-2 text-sm"></i>
+                        <div>
+                            <p class="text-gray-600 text-sm">빠진 물건이 없는지 꼼꼼히 확인해주세요!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item relative pl-12 mb-8">
+                <div class="timeline-line"></div>
+                <div class="absolute left-0 top-1 w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center shadow-md ring-4 ring-white z-10">
+                    <i class="fas fa-utensils text-sm"></i>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all border-dashed border-2 border-teal-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-bold text-lg text-gray-800">점심 식사 및 해산</h3>
+                        <span class="text-sm font-bold text-teal-600 bg-teal-50 px-3 py-1 rounded-lg">12:00</span>
+                    </div>
+                    
+                    <div class="mt-3 bg-gray-50 rounded-lg p-4 flex flex-col items-center justify-center text-center">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-2 text-gray-400">
+                            <i class="fas fa-question text-xl"></i>
+                        </div>
+                        <p class="text-gray-700 font-medium text-sm mb-1">계획 미정</p>
+                        <p class="text-gray-500 text-xs">피곤하다면 휴식을 위해<br>바로 각자 집으로 귀가할 수도 있어요.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item relative pl-12">
+                <div class="timeline-line"></div>
+                <div class="absolute left-0 top-1 w-10 h-10 rounded-full bg-slate-300 text-white flex items-center justify-center shadow-md ring-4 ring-white z-10">
+                    <i class="fas fa-home text-sm"></i>
+                </div>
+                
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-400">안전 귀가</h3>
+                </div>
+            </div>
+
+        </div>
         
         <!-- 하단 마무림 여백 -->
         <div class="mt-12 text-center text-gray-400 text-xs">
@@ -243,66 +314,25 @@
         </div>
     </main>
 
-    <!-- 하단 공유 버튼 고정 바 -->
-    <div class="fixed bottom-0 left-0 w-full z-30">
-        <div class="max-w-md mx-auto bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 pb-6">
-            <button onclick="copyItineraryText()" class="w-full bg-blue-600 text-white rounded-xl py-3.5 font-bold text-base shadow-lg shadow-blue-500/30 hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center">
-                <i class="fas fa-comment text-yellow-300 mr-2 text-lg"></i> 카톡 공유용 텍스트 복사하기
-            </button>
-        </div>
-    </div>
-
-    <!-- 토스트 알림창 -->
-    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-5 py-3 rounded-full shadow-xl text-sm font-medium transition-all duration-300 opacity-0 -translate-y-full z-50 pointer-events-none whitespace-nowrap">
-        복사되었습니다!
-    </div>
-
     <script>
-        // 카카오톡 등 메신저에 바로 붙여넣기 좋게 텍스트로 복사하는 기능
-        function copyItineraryText() {
-            const itineraryText = `🌊 여름 바다 힐링 여행 일정 🌊
-📅 7/5(일) ~ 7/6(월)
-
-[첫째 날 - 7/5 일요일]
-🍜 11:00 - 백년교동짬뽕 안산점 (점심 집결)
-🌱 13:00 - 그린티플 (체험 놀이)
-🏠 16:00 - 꿈의궁전펜션 (체크인)
-🍖 17:30 - 바베큐 1차 (아이들 식사)
-✨ 20:00 - 장경리 해수욕장 (산책/스파클라)
-🍷 21:00 - 바베큐 2차 (어른들의 시간)
-
-안전하고 즐거운 여행 되세요! 👨‍👩‍👧‍👦`;
-
-            // 임시 textarea를 생성하여 텍스트 복사 (모바일 호환성)
-            const tempTextArea = document.createElement("textarea");
-            tempTextArea.value = itineraryText;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
+        // 탭 전환 함수
+        function switchTab(day) {
+            // 버튼 스타일 초기화
+            document.getElementById('tab-day1').className = "flex-1 py-4 text-center border-b-2 border-transparent text-gray-400 font-medium hover:text-gray-600 transition-colors";
+            document.getElementById('tab-day2').className = "flex-1 py-4 text-center border-b-2 border-transparent text-gray-400 font-medium hover:text-gray-600 transition-colors";
             
-            try {
-                document.execCommand('copy');
-                showToast("일정 텍스트가 복사되었습니다! 카톡에 붙여넣기 해보세요.");
-            } catch (err) {
-                showToast("복사에 실패했습니다. 브라우저 설정을 확인해주세요.");
-            } finally {
-                document.body.removeChild(tempTextArea);
+            // 콘텐츠 숨기기
+            document.getElementById('content-day1').classList.remove('active');
+            document.getElementById('content-day2').classList.remove('active');
+            
+            // 선택된 탭 스타일 적용 및 콘텐츠 보이기
+            if(day === 'day1') {
+                document.getElementById('tab-day1').className = "flex-1 py-4 text-center border-b-2 border-blue-500 text-blue-600 font-bold transition-colors";
+                document.getElementById('content-day1').classList.add('active');
+            } else {
+                document.getElementById('tab-day2').className = "flex-1 py-4 text-center border-b-2 border-blue-500 text-blue-600 font-bold transition-colors";
+                document.getElementById('content-day2').classList.add('active');
             }
-        }
-
-        // 토스트 메시지 띄우기 함수
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            
-            // 나타나기
-            toast.classList.remove('opacity-0', '-translate-y-full');
-            toast.classList.add('opacity-100', 'translate-y-0');
-            
-            // 3초 후 사라지기
-            setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', '-translate-y-full');
-            }, 3000);
         }
     </script>
 </div>
